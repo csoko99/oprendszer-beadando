@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Received Data</title>
+</head>
+<body>
+    <h1>Received Data</h1>
+    <div id="data-container">
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://localhost:3000/receive-data', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Sikeres válasz esetén az adatok megjelenítése
+                        var responseData = JSON.parse(xhr.responseText);
+                        var dataContainer = document.getElementById('data-container');
+                        dataContainer.innerText = JSON.stringify(responseData, null, 2);
+                    } else {
+                        console.error('Hiba történt a szerverrel való kommunikáció során.');
+                    }
+                }
+            };
+
+            // POST kérés elküldése üres adattal (mivel a szerverünk nem igényel adatot)
+            xhr.send(JSON.stringify({}));
+        });
+    </script>
+    
+</body>
+</html>
