@@ -7,33 +7,26 @@
 </head>
 <body>
     <h1>Received Data</h1>
-    <div id="data-container">
-
-    </div>
+    <div id="data-container"></div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'http://localhost:3000/receive-data', true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
+       document.addEventListener('DOMContentLoaded', function () {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:3000/get-data', true);
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        // Sikeres válasz esetén az adatok megjelenítése
-                        var responseData = JSON.parse(xhr.responseText);
-                        var dataContainer = document.getElementById('data-container');
-                        dataContainer.innerText = JSON.stringify(responseData, null, 2);
-                    } else {
-                        console.error('Hiba történt a szerverrel való kommunikáció során.');
-                    }
-                }
-            };
-
-            // POST kérés elküldése üres adattal (mivel a szerverünk nem igényel adatot)
-            xhr.send(JSON.stringify({}));
-        });
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                var responseData = JSON.parse(xhr.responseText);
+                var dataContainer = document.getElementById('data-container');
+                dataContainer.innerText = JSON.stringify(responseData, null, 2);
+            } else {
+                console.error('Hiba történt a szerverrel való kommunikáció során.');
+            }
+        }
+    };
+    xhr.send();
+});
     </script>
-    
 </body>
 </html>
