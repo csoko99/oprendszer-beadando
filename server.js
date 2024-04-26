@@ -9,6 +9,7 @@ app.use(express.json());
 // Adatok fogadása és mentése a JSON fájlba
 app.post('/receive-data', (req, res) => {
   const data = req.body;
+  console.log('XXX Received data:', data); // Add console log here
   fs.writeFile('data.json', JSON.stringify(data), (err) => {
       if (err) {
           console.error('Hiba történt az adatok mentésekor:', err);

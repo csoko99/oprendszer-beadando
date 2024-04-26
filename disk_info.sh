@@ -12,7 +12,11 @@ send_data() {
 
 url="http://localhost:3000/receive-data"
 
-disk_info=$(get_disk_info)
-echo "$disk_info" > data.json  # Adatok mentése JSON fájlba
-send_data "$url" "$disk_info"
+ddisk_info=$(get_disk_info)
+disk_info=$(echo "$disk_info" | sed '$ s/,$//')
+echo "$disk_info"
+echo "$disk_info" > data.json
+send_data "$url" "[$disk_info]"
+
+
 
